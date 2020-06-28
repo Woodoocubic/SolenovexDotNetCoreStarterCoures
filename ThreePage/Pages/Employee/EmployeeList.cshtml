@@ -1,0 +1,47 @@
+﻿@page "{departmentId: int}"
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using Three.Models
+@using Three.Services
+
+@model EmployeeListModel
+<div class="row">
+    <div class="col-md-10 offset-md-2">
+        <table class="table">
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Is Fired</th>
+                <th>Operation</th>
+            </tr>
+            @Html.DisplayFor(x => x.Employees)
+        </table>
+        <a asp-page="AddEmployee" asp-route-departmentId="@ViewData["DepartmentId"]">Add</a>
+    </div>
+</div>
+
+@functions{
+    public class EmployeeListModel: PageModel
+    {
+        private readonly IEmployeeService _employeeService;
+
+        public EmployeeListModel(IEmployeeService employeeService)
+        {
+            _employeeService = employeeService;
+        }
+
+        public IEnumerable<Employee> Employees { get; set; }
+
+        public async Task onGet(int departmentId)
+        {
+            Employees = await _employeeService.GetByDepartmentId(departmentId);
+            ViewData["DepartmentId"] = departmentId;
+        }
+
+        public async Task<IActionResult> OnGetFire(int employeeId, int departmentId)
+        {
+            await _employeeService.Fire(employeeId);
+            return RedirectToPage("EmployeeList", new {departmentId});
+        }
+    }
+}

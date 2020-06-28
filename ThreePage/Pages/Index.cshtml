@@ -1,0 +1,36 @@
+﻿@page
+@using Three.Models
+@using Three.Services
+@using ThreePage.Pages.DisplayTemplates
+
+@inject IDepartmentService departmentService
+
+<div class="row">
+    <div class="col-md-10 offset-md-2">
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Employee Count</th>
+                <th>Operation</th>
+            </tr>
+            @Html.DisplayFor(x => x.Departments)
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <a asp-page ="Department/AddDepartment">Add</a>
+    </div>
+</div>
+
+@functions
+{
+    public IEnumerable<Three.Models.Department> Departments { get; set; }
+
+    public async Task OnGetAsync()
+    {
+        Departments = await departmentService.GetAll();
+    }
+}

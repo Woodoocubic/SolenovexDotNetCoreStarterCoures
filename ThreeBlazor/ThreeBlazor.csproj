@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version ="2.23.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+  <Protobuf Include="..\..\gRPCApi\Protos\grpcapi.proto" GrpcService="Client"/>
+  </ItemGroup>
+
+</Project>

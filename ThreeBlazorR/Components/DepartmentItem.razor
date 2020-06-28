@@ -1,0 +1,22 @@
+﻿<tr>
+    <td>@Department.Name</td>
+    <td>@Department.Location</td>
+    @if (Department.EmployeeCount > 50)
+    {
+        <td><strong>@Department.EmployeeCount</strong></td>
+    }
+    else
+    {
+        <td>@Department.EmployeeCount</td>
+    }
+    <td>@Department.EmployeeCount</td>
+    <td>
+        <a href="/employee/@Department.Id">Employees</a>
+    </td>
+</tr>
+
+@code
+{
+    [Parameter]
+    public Department Department { get; set; }
+}
